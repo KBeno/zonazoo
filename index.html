@@ -1,0 +1,1396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zonazoo</title>
+<meta name="description" content="Timeline view of your team's time zones for scheduling meetings.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20159%20163%27%3E%3Cpath%20fill%3D%27%23F11336%27%20d%3D%27M131.48%2045.4986C127.96%2022.3213%20110.278%204.05962%2087.636%200.291991C85.7511%200.0150228%2083.8354%200.509712%2082.3066%201.66815C80.7779%202.82659%2079.7602%204.55477%2079.4756%206.47571C79.4292%206.84268%2079.4027%207.21199%2079.3963%207.58195C79.3895%209.30751%2079.9793%2010.9802%2081.062%2012.306C82.1447%2013.6317%2083.651%2014.5255%2085.3158%2014.8302C101.158%2017.369%20113.759%2029.7756%20116.919%2045.869C103.159%2049.3079%2092.9977%2061.1848%2091.4758%2075.5979C89.2758%2096.8914%2070.6348%20112.327%2049.8323%20110.117C30.5517%20108.03%2015.9092%2091.3626%2015.9092%2071.504C15.9092%2068.2687%2016.2698%2065.075%2017.0296%2061.9623C17.5105%2060.2012%2018.15%2058.4817%2018.7487%2056.7205C20.1889%2053.0338%2018.5492%2048.859%2014.9883%2047.3015C14.8681%2047.3015%2014.8681%2047.1788%2014.7479%2047.1788C13.8651%2046.8094%2012.9192%2046.6223%2011.965%2046.6284C11.0108%2046.6346%2010.0673%2046.8338%209.18907%2047.2146C8.31088%2047.5953%207.51547%2048.1501%206.84892%2048.8467C6.18237%2049.5433%205.65793%2050.3678%205.30596%2051.2727C4.46601%2053.4967%203.74524%2055.7657%203.14685%2058.0696C1.27365%2064.7766%200.226116%2071.6954%200.0283958%2078.6665C-1.13291%20123.544%2033.4706%20160.889%2077.3141%20162.077C121.158%20163.264%20157.641%20127.844%20158.8%2082.9639C158.8%2082.228%20158.841%2081.5314%20158.841%2080.7931V78.7057C158.762%2062.3278%20147.24%2048.3243%20131.48%2045.4986ZM125%2089.1084C119.919%2089.1084%20115.798%2084.8894%20115.798%2079.6893C115.796%2078.9991%20115.877%2078.3113%20116.039%2077.6411C116.403%2075.8847%20117.258%2074.2734%20118.5%2073.002C119.743%2071.7305%20121.32%2070.8533%20123.04%2070.4763C125.435%2069.9474%20127.938%2070.4091%20130%2071.76C132.062%2073.1109%20133.515%2075.2409%20134.04%2077.6829C134.201%2078.3378%20134.24%2078.9927%20134.24%2079.6893C134.319%2084.8085%20130.359%2089.025%20125.358%2089.1084H125Z%27/%3E%3C/svg%3E">
+<script>try { var t = localStorage.getItem('zonazoo.theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* ---------- Datapao Design System tokens ---------- */
+:root {
+  --dp-red: #f11336;      --dp-red-600: #d90e2e;  --dp-red-50: #fff3f5;
+  --dp-navy-900: #15212e; --dp-navy-800: #1c2a3a; --dp-navy-700: #253548; --dp-navy-600: #33445a; --dp-navy-400: #6b7b92;
+  --dp-ink-900: #251f1f;  --dp-ink-600: #626a77;  --dp-ink-500: #8a91a3;  --dp-ink-300: #d4d7df; --dp-ink-200: #e6e8ee; --dp-ink-100: #f2f3f6; --dp-ink-50: #ececec;
+  --dp-text-dark: #cbdfec; --fg-on-dark-2: #b9c2d4; --fg-on-dark-3: #7e8aa3;
+  --dp-success: #1fae6a;  --dp-success-bg: #e4f7ee; --dp-warning: #e5a332; --dp-warning-bg: #fdf3de;
+  --shadow-xs: 0 1px 2px rgba(15, 22, 38, .05);
+  --shadow-sm: 0 2px 6px rgba(15, 22, 38, .06), 0 1px 2px rgba(15, 22, 38, .04);
+  --shadow-md: 0 8px 20px rgba(15, 22, 38, .08), 0 2px 6px rgba(15, 22, 38, .05);
+  --shadow-lg: 0 18px 40px rgba(15, 22, 38, .12), 0 6px 14px rgba(15, 22, 38, .06);
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --r-xs: 2px; --r-sm: 4px; --r-md: 6px; --r-lg: 10px;
+  --font: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* ---------- roles (light) ---------- */
+  --page: linear-gradient(90deg, #ffffff, var(--dp-ink-50));
+  --panel: #ffffff;
+  --text: var(--dp-ink-900);
+  --muted: var(--dp-ink-600);
+  --line: var(--dp-ink-200);
+  --line-strong: var(--dp-ink-300);
+  --input: #ffffff;
+  --btn: #ffffff;
+
+  --night: var(--dp-navy-900);  --night-text: var(--fg-on-dark-2);
+  --awake: var(--dp-ink-100);   --awake-text: var(--dp-ink-600);
+  --work: var(--dp-text-dark);  --work-text: var(--dp-navy-900);
+
+  --me-row: rgba(203, 223, 236, .35); /* soft dp-text-dark tint across your whole row */
+
+  --sel: var(--dp-red); --sel-fill: rgba(241, 19, 54, .08); --sel-chip: var(--dp-red-600);
+  --now: var(--dp-ink-900);
+  --good: var(--dp-success); --ok: var(--dp-warning); --bad: var(--dp-red);
+  --warn-bg: var(--dp-warning-bg); --warn-text: var(--dp-ink-900);
+  --overlap: var(--dp-success); --overlap-soft: var(--dp-success-bg);
+
+  --hdr-bg: #ffffff; --hdr-text: var(--dp-ink-900); --hdr-muted: var(--dp-ink-600);
+  --hdr-line: var(--dp-ink-300); --hdr-field: #ffffff; --hdr-shadow: var(--shadow-xs);
+
+  --info-w: 250px;
+  --meet-w: 175px;
+  --row-h: 60px;
+  color-scheme: light;
+}
+/* Dark theme: chosen explicitly via the header switch, or following the system when set to "System". */
+:root[data-theme="dark"] {
+    --page: var(--dp-navy-900);
+    --panel: var(--dp-navy-800);
+    --text: #ffffff;
+    --muted: var(--fg-on-dark-2);
+    --line: var(--dp-navy-600);
+    --line-strong: var(--dp-navy-400);
+    --input: var(--dp-navy-900);
+    --btn: var(--dp-navy-700);
+
+    --night: var(--dp-navy-900);  --night-text: var(--fg-on-dark-3);
+    --awake: var(--dp-navy-600);  --awake-text: var(--fg-on-dark-2);
+    --work: var(--dp-text-dark);  --work-text: var(--dp-navy-900);
+
+    --me-row: rgba(203, 223, 236, .08);
+
+    --sel-fill: rgba(241, 19, 54, .16);
+    --now: #ffffff;
+    --warn-bg: #4a3a17; --warn-text: #fdf3de;
+    --overlap-soft: rgba(31, 174, 106, .28);
+    --hdr-bg: var(--dp-navy-900); --hdr-text: #ffffff; --hdr-muted: var(--fg-on-dark-2);
+    --hdr-line: var(--dp-navy-600); --hdr-field: var(--dp-navy-800); --hdr-shadow: none;
+    color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: var(--dp-navy-900);
+    --panel: var(--dp-navy-800);
+    --text: #ffffff;
+    --muted: var(--fg-on-dark-2);
+    --line: var(--dp-navy-600);
+    --line-strong: var(--dp-navy-400);
+    --input: var(--dp-navy-900);
+    --btn: var(--dp-navy-700);
+
+    --night: var(--dp-navy-900);  --night-text: var(--fg-on-dark-3);
+    --awake: var(--dp-navy-600);  --awake-text: var(--fg-on-dark-2);
+    --work: var(--dp-text-dark);  --work-text: var(--dp-navy-900);
+
+    --me-row: rgba(203, 223, 236, .08);
+
+    --sel-fill: rgba(241, 19, 54, .16);
+    --now: #ffffff;
+    --warn-bg: #4a3a17; --warn-text: #fdf3de;
+    --overlap-soft: rgba(31, 174, 106, .28);
+    --hdr-bg: var(--dp-navy-900); --hdr-text: #ffffff; --hdr-muted: var(--fg-on-dark-2);
+    --hdr-line: var(--dp-navy-600); --hdr-field: var(--dp-navy-800); --hdr-shadow: none;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--page);
+  background-attachment: fixed;
+  color: var(--text);
+  font: 400 14px/1.5 var(--font);
+  min-height: 100vh;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+.ico { width: 16px; height: 16px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border: 1px solid var(--line-strong); background: var(--btn); border-radius: var(--r-sm);
+  padding: 7px 12px; cursor: pointer; font-weight: 600; font-size: 13px;
+  transition: border-color 120ms var(--ease-out), background-color 120ms var(--ease-out), transform 120ms var(--ease-out);
+}
+button:hover { border-color: var(--muted); }
+button:active { transform: scale(.99); }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--dp-red); outline-offset: 1px; }
+button.primary { background: var(--dp-red); border-color: var(--dp-red); color: #fff; }
+button.primary:hover { background: var(--dp-red-600); border-color: var(--dp-red-600); }
+button.icon { padding: 7px; }
+input, select, textarea {
+  background: var(--input); border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: 6px 9px;
+}
+input.bad { border-color: var(--bad); outline-color: var(--bad); }
+code { font-family: var(--mono); font-size: .92em; }
+
+/* ---------- header (dark brand bar) ---------- */
+header.top {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 14px 24px; background: var(--hdr-bg); color: var(--hdr-text); position: relative; box-shadow: var(--hdr-shadow);
+}
+header.top::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(90deg, var(--dp-navy-900) 25%, var(--dp-red) 75%, #fa888c 100%);
+}
+.brand { display: flex; align-items: center; gap: 14px; margin-right: auto; }
+.brand .logo { height: 26px; width: auto; display: block; }
+.brand .divider { width: 1px; height: 26px; background: var(--hdr-line); }
+/* Official logo variants: dark (off-black + red) on the light header, white on the dark one. */
+.brand .logo-light-bg { display: block; }
+.brand .logo-dark-bg { display: none; }
+:root[data-theme="dark"] .brand .logo-light-bg { display: none; }
+:root[data-theme="dark"] .brand .logo-dark-bg { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .brand .logo-light-bg { display: none; }
+  :root:not([data-theme="light"]) .brand .logo-dark-bg { display: block; }
+}
+.brand .product { display: flex; flex-direction: column; line-height: 1.15; }
+.brand .product b { font-size: 17px; font-weight: 600; }
+.brand .product small { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--hdr-muted); }
+.group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.group label { color: var(--muted); font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+header.top .group label { color: var(--hdr-muted); }
+header.top select { background: var(--hdr-field); border-color: var(--hdr-line); color: var(--hdr-text); }
+header.top button:not(.primary) { background: transparent; border-color: var(--hdr-line); color: var(--hdr-text); }
+header.top button:not(.primary):hover { border-color: var(--hdr-muted); }
+header.top input[type="checkbox"] { accent-color: var(--dp-red); }
+
+main { padding: 24px 24px 48px; max-width: 1720px; margin: 0 auto; display: grid; gap: 20px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow-sm); }
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.toolbar .day { margin-right: auto; display: flex; flex-direction: column; }
+.toolbar .day .eyebrow { margin-bottom: 2px; }
+.toolbar .day b { font-weight: 600; font-size: 20px; line-height: 1.25; }
+.toolbar .day small { color: var(--muted); font-size: 12.5px; }
+.eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--dp-red); }
+
+/* ---------- timeline ---------- */
+.tl-wrap { overflow-x: auto; }
+.tl { min-width: 1240px; position: relative; user-select: none; -webkit-user-select: none; }
+.tl-head, .row { display: grid; grid-template-columns: var(--info-w) 1fr var(--meet-w); }
+.tl-head { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .16em; border-bottom: 1px solid var(--line); }
+.tl-head > div { padding: 10px 14px; }
+.rows { position: relative; padding-bottom: 32px; }
+.row { height: var(--row-h); border-bottom: 1px solid var(--line); }
+.info { padding: 7px 14px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 1px; min-width: 0; }
+.info .n { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.info .n .city { font-weight: 400; color: var(--muted); }
+.chip { display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: .08em; background: var(--dp-red-600); color: #fff; border-radius: var(--r-xs); padding: 1px 5px; margin-left: 6px; vertical-align: 2px; }
+.info .z, .info .d { font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.info .z b { color: var(--text); font-weight: 600; }
+.info .d { display: flex; align-items: center; gap: 4px; }
+.info .d .ico { width: 13px; height: 13px; }
+.info .d.soon { color: var(--warn-text); font-weight: 600; background: var(--warn-bg); border-radius: var(--r-xs); padding: 0 5px; align-self: flex-start; max-width: 100%; }
+.row.me { background: var(--me-row); }
+.row.me .lb b { font-weight: 700; }
+
+.track { position: relative; overflow: hidden; margin: 6px 0; border-radius: var(--r-sm); touch-action: pan-y; cursor: crosshair; }
+.seg { position: absolute; top: 0; bottom: 0; }
+.c-night { background: var(--night); }
+.c-awake { background: var(--awake); }
+.c-work  { background: var(--work); }
+.lb {
+  position: absolute; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-left: 1px solid rgba(127, 137, 160, .22); line-height: 1.1; font-variant-numeric: tabular-nums;
+}
+.lb b { font-size: 13px; font-weight: 600; }
+.lb i { font-style: normal; font-size: 9.5px; font-weight: 500; opacity: .85; }
+.lb.t-night { color: var(--night-text); }
+.lb.t-awake { color: var(--awake-text); }
+.lb.t-work  { color: var(--work-text); }
+.lb.mid { border-left: 2px solid currentColor; }
+.lb.mid b { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.dst-mark { position: absolute; top: 0; bottom: 0; width: 0; border-left: 2px dashed var(--ok); z-index: 1; }
+.dst-mark span { position: absolute; top: 2px; left: 4px; font-size: 9.5px; font-weight: 700; color: var(--warn-text); background: var(--warn-bg); padding: 0 4px; border-radius: var(--r-xs); white-space: nowrap; }
+
+.meet { padding: 7px 14px; display: flex; flex-direction: column; justify-content: center; font-variant-numeric: tabular-nums; min-width: 0; }
+.meet .t { font-weight: 600; white-space: nowrap; }
+.meet .s { font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; flex: none; }
+.dot.good { background: var(--good); } .dot.ok { background: var(--ok); } .dot.bad { background: var(--bad); }
+
+.row.overlap { height: 36px; border-bottom: 0; }
+.row.overlap .info .n { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.row.overlap .track { margin: 10px 0; }
+.row.overlap .meet .s { color: var(--text); font-weight: 500; }
+.c-allwork { background: var(--overlap); }
+.c-allawake { background: var(--overlap-soft); }
+
+.layer { position: absolute; top: 0; bottom: 32px; left: var(--info-w); right: var(--meet-w); pointer-events: none; }
+.now { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--now); z-index: 3; display: none; }
+.now::before { content: "Now"; position: absolute; bottom: -19px; left: 50%; transform: translateX(-50%); font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--now); }
+.hover { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--muted); opacity: .45; display: none; z-index: 2; }
+.sel {
+  position: absolute; top: 0; bottom: 0; z-index: 4; pointer-events: auto; cursor: grab;
+  background: var(--sel-fill); border: 2px solid var(--sel); border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+}
+.sel:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.sel.dragging { cursor: grabbing; box-shadow: var(--shadow-lg); }
+.sel .h { position: absolute; top: 0; bottom: 0; width: 12px; cursor: ew-resize; }
+.sel .h.l { left: -7px; } .sel .h.r { right: -7px; }
+.sel .h::after { content: ""; position: absolute; left: 4px; top: 50%; height: 28px; margin-top: -14px; width: 4px; border-radius: var(--r-xs); background: var(--sel); }
+.sel-label {
+  position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  background: var(--sel-chip); color: #fff; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: var(--r-xs); white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 12px 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i { display: inline-block; width: 16px; height: 10px; border-radius: var(--r-xs); }
+.legend .i-me { background: var(--me-row); border: 1px solid var(--line-strong); }
+.legend .i-dst { border-left: 2px dashed var(--ok); width: 0; height: 12px; border-radius: 0; }
+.legend .i-now { background: var(--now); width: 2px; height: 12px; }
+.legend .hint { flex-basis: 100%; }
+
+/* ---------- summary ---------- */
+.summary { padding: 18px 20px; }
+.summary h2 { margin: 4px 0 4px; font-size: 20px; font-weight: 600; line-height: 1.25; }
+.summary .sub { color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 0; }
+.summary table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.summary th, .summary td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.summary th { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.summary tr.me td { background: var(--me-row); }
+.summary .actions { display: flex; gap: 10px; margin-top: 14px; align-items: center; flex-wrap: wrap; }
+.summary .tbl { overflow-x: auto; }
+.muted { color: var(--muted); }
+
+/* ---------- editor ---------- */
+dialog { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); color: var(--text); padding: 0; width: min(1100px, calc(100vw - 32px)); box-shadow: var(--shadow-lg); }
+dialog::backdrop { background: rgba(21, 33, 46, .55); }
+.dlg header { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.dlg h2 { margin: 0; font-size: 20px; font-weight: 600; }
+.tabs { display: flex; margin-right: auto; border: 1px solid var(--line-strong); border-radius: var(--r-sm); overflow: hidden; }
+.tabs button { border: 0; border-radius: 0; background: transparent; }
+.tabs button.active { background: var(--dp-navy-900); color: #fff; }
+:root[data-theme="dark"] .tabs button.active { background: #fff; color: var(--dp-ink-900); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tabs button.active { background: #fff; color: var(--dp-ink-900); } }
+.dlg .body { padding: 18px 20px; max-height: 70vh; overflow: auto; }
+.ed-grid { display: grid; gap: 6px; }
+.ed-row, .ed-h { display: grid; grid-template-columns: 1.1fr 1.1fr 1.8fr .95fr .8fr 112px; gap: 6px; align-items: center; }
+.ed-h { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); padding: 0 2px 2px; }
+.ed-row.me { background: var(--me-row); border-radius: var(--r-md); padding: 6px; margin: 0 -6px; }
+.ed-row input { width: 100%; min-width: 0; }
+.tzcell { position: relative; }
+.tzcell .pv { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--muted); pointer-events: none; background: var(--input); padding-left: 4px; }
+.ed-act { display: flex; gap: 4px; justify-content: flex-end; }
+.ed-act .chip { margin-right: 6px; }
+.ed-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.settings { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.settings label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 500; color: var(--muted); }
+.hint { font-size: 12px; color: var(--muted); margin-top: 14px; line-height: 1.6; }
+#yamlText { width: 100%; min-height: 50vh; font: 13px/1.55 var(--mono); resize: vertical; tab-size: 2; }
+.err { color: var(--bad); white-space: pre-wrap; font-size: 13px; font-weight: 500; margin: 8px 0; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translate(-50%, 8px); background: var(--dp-navy-900); color: #fff; padding: 9px 16px; border-radius: var(--r-sm); font-weight: 600; font-size: 13px; opacity: 0; transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out); pointer-events: none; z-index: 10; box-shadow: var(--shadow-md); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.drop { position: fixed; inset: 0; background: rgba(21, 33, 46, .6); border: 3px dashed var(--dp-red); display: none; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: #fff; z-index: 20; }
+.drop.show { display: flex; }
+
+@media (max-width: 760px) {
+  header.top, main { padding-left: 16px; padding-right: 16px; }
+  .brand .divider, .brand .product small { display: none; }
+  :root { --info-w: 200px; --meet-w: 150px; }
+  .ed-h { display: none; }
+  .ed-row { grid-template-columns: 1fr 1fr; padding: 8px; border: 1px solid var(--line); border-radius: var(--r-md); }
+  .ed-row .tzcell { grid-column: 1 / -1; }
+  .ed-row.me { margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <svg class="logo logo-light-bg" role="img" aria-label="Datapao" viewBox="0 0 620 163" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M201.322 62.9519H224.404C243.006 62.9519 255.807 75.9742 255.807 93.0487V93.2131C255.807 110.248 242.965 123.474 224.404 123.474H201.322V62.9519ZM214.363 74.9489V111.433H224.404C233.684 112.007 241.686 104.759 242.246 95.2588C242.287 94.6315 242.287 94.0022 242.246 93.375V93.2106C242.473 88.6101 240.904 84.1054 237.883 80.6824C234.861 77.2594 230.634 75.1969 226.125 74.9465C225.552 74.9047 224.977 74.9047 224.404 74.9465L214.363 74.9489ZM285.409 62.5422H297.412L322.773 123.514H309.172L303.772 109.959H278.769L273.33 123.514H260.048L285.409 62.5422ZM299.09 98.1679L291.211 78.5129L283.371 98.1679H299.09ZM339.455 75.2359H321.453V62.9519H370.418V75.2359H352.417V123.514H339.414L339.455 75.2359ZM394.421 62.5422H406.421L431.782 123.514H418.183L412.742 109.959H387.739L382.298 123.514H369.057L394.421 62.5422ZM408.101 98.1679L400.22 78.5129L392.339 98.1679H408.101ZM442.183 62.9519H466.347C480.468 62.9519 488.989 71.51 488.989 83.875V84.0393C488.989 98.0428 478.347 105.291 465.106 105.291H455.186V123.43H442.183V62.9519ZM465.546 93.4584C472.026 93.4584 475.866 89.4872 475.866 84.3263V84.1619C475.866 78.2235 471.827 75.0299 465.306 75.0299H455.265V93.5393H465.546V93.4584ZM515.55 62.5422H527.552L552.914 123.514H539.312L533.871 109.959H508.871L503.43 123.514H490.189L515.55 62.5422ZM529.192 98.1679L521.311 78.5129L513.432 98.1679H529.192ZM557.155 93.375V93.2106C557.633 75.4395 572.076 61.436 589.438 61.9266C606.038 62.3779 619.44 76.0135 620 93.0463V93.2106C619.519 110.982 605.079 124.985 587.717 124.495C571.076 124.043 557.715 110.408 557.155 93.375ZM606.399 93.375V93.2106C606.718 83.0557 598.957 74.5393 589.037 74.1689H588.477C578.717 74.1272 570.756 82.1947 570.756 92.227V93.0463V93.2106C570.437 103.366 578.195 111.882 588.118 112.252H588.676C591.003 112.259 593.309 111.797 595.461 110.892C597.613 109.987 599.568 108.658 601.215 106.98C602.862 105.302 604.167 103.309 605.057 101.114C605.946 98.9204 606.402 96.5686 606.399 94.1942C606.439 93.9227 606.439 93.6465 606.399 93.375Z" fill="#251F1F"></path>
+<path d="M131.48 45.4986C127.96 22.3213 110.278 4.05962 87.636 0.291991C85.7511 0.0150228 83.8354 0.509712 82.3066 1.66815C80.7779 2.82659 79.7602 4.55477 79.4756 6.47571C79.4292 6.84268 79.4027 7.21199 79.3963 7.58195C79.3895 9.30751 79.9793 10.9802 81.062 12.306C82.1447 13.6317 83.651 14.5255 85.3158 14.8302C101.158 17.369 113.759 29.7756 116.919 45.869C103.159 49.3079 92.9977 61.1848 91.4758 75.5979C89.2758 96.8914 70.6348 112.327 49.8323 110.117C30.5517 108.03 15.9092 91.3626 15.9092 71.504C15.9092 68.2687 16.2698 65.075 17.0296 61.9623C17.5105 60.2012 18.15 58.4817 18.7487 56.7205C20.1889 53.0338 18.5492 48.859 14.9883 47.3015C14.8681 47.3015 14.8681 47.1788 14.7479 47.1788C13.8651 46.8094 12.9192 46.6223 11.965 46.6284C11.0108 46.6346 10.0673 46.8338 9.18907 47.2146C8.31088 47.5953 7.51547 48.1501 6.84892 48.8467C6.18237 49.5433 5.65793 50.3678 5.30596 51.2727C4.46601 53.4967 3.74524 55.7657 3.14685 58.0696C1.27365 64.7766 0.226116 71.6954 0.0283958 78.6665C-1.13291 123.544 33.4706 160.889 77.3141 162.077C121.158 163.264 157.641 127.844 158.8 82.9639C158.8 82.228 158.841 81.5314 158.841 80.7931V78.7057C158.762 62.3278 147.24 48.3243 131.48 45.4986ZM125 89.1084C119.919 89.1084 115.798 84.8894 115.798 79.6893C115.796 78.9991 115.877 78.3113 116.039 77.6411C116.403 75.8847 117.258 74.2734 118.5 73.002C119.743 71.7305 121.32 70.8533 123.04 70.4763C125.435 69.9474 127.938 70.4091 130 71.76C132.062 73.1109 133.515 75.2409 134.04 77.6829C134.201 78.3378 134.24 78.9927 134.24 79.6893C134.319 84.8085 130.359 89.025 125.358 89.1084H125Z" fill="#F11336"></path>
+</svg>
+    <svg class="logo logo-dark-bg" role="img" aria-label="Datapao" viewBox="0 0 620 163" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M201.322 63.6491H224.404C243.006 63.6491 255.807 76.6715 255.807 93.746V93.9103C255.807 110.946 242.965 124.172 224.404 124.172H201.322V63.6491ZM214.363 75.6462V112.13H224.404C233.684 112.704 241.686 105.456 242.246 95.956C242.287 95.3288 242.287 94.6995 242.246 94.0722V93.9079C242.473 89.3074 240.904 84.8027 237.883 81.3796C234.861 77.9566 230.634 75.8942 226.125 75.6437C225.552 75.602 224.977 75.602 224.404 75.6437L214.363 75.6462ZM285.409 63.2395H297.412L322.773 124.211H309.172L303.772 110.656H278.769L273.33 124.211H260.048L285.409 63.2395ZM299.09 98.8652L291.211 79.2102L283.371 98.8652H299.09ZM339.455 75.9332H321.453V63.6491H370.418V75.9332H352.417V124.211H339.414L339.455 75.9332ZM394.421 63.2395H406.421L431.782 124.211H418.183L412.742 110.656H387.739L382.298 124.211H369.057L394.421 63.2395ZM408.101 98.8652L400.22 79.2102L392.339 98.8652H408.101ZM442.183 63.6491H466.347C480.468 63.6491 488.989 72.2072 488.989 84.5722V84.7366C488.989 98.7401 478.347 105.988 465.106 105.988H455.186V124.127H442.183V63.6491ZM465.546 94.1556C472.026 94.1556 475.866 90.1844 475.866 85.0236V84.8592C475.866 78.9208 471.827 75.7271 465.306 75.7271H455.265V94.2366H465.546V94.1556ZM515.55 63.2395H527.552L552.914 124.211H539.312L533.871 110.656H508.871L503.43 124.211H490.189L515.55 63.2395ZM529.192 98.8652L521.311 79.2102L513.432 98.8652H529.192ZM557.155 94.0722V93.9079C557.633 76.1368 572.076 62.1333 589.438 62.6238C606.038 63.0752 619.44 76.7107 620 93.7435V93.9079C619.519 111.679 605.079 125.683 587.717 125.192C571.076 124.741 557.715 111.105 557.155 94.0722ZM606.399 94.0722V93.9079C606.718 83.753 598.957 75.2366 589.037 74.8662H588.477C578.717 74.8245 570.756 82.892 570.756 92.9243V93.7435V93.9079C570.437 104.063 578.195 112.579 588.118 112.95H588.676C591.003 112.956 593.309 112.494 595.461 111.589C597.613 110.684 599.568 109.355 601.215 107.677C602.862 105.999 604.167 104.006 605.057 101.812C605.946 99.6176 606.402 97.2659 606.399 94.8915C606.439 94.62 606.439 94.3437 606.399 94.0722Z" fill="#F4F4F4"></path>
+<path d="M131.48 46.1949C127.96 23.0176 110.278 4.75591 87.636 0.98828C85.7511 0.711312 83.8354 1.206 82.3066 2.36444C80.7779 3.52288 79.7602 5.25106 79.4756 7.17199C79.4292 7.53897 79.4027 7.90828 79.3963 8.27824C79.3895 10.0038 79.9793 11.6765 81.062 13.0023C82.1447 14.328 83.651 15.2218 85.3158 15.5265C101.158 18.0652 113.759 30.4719 116.919 46.5653C103.159 50.0042 92.9977 61.8811 91.4758 76.2942C89.2758 97.5877 70.6348 113.024 49.8323 110.814C30.5517 108.726 15.9092 92.0589 15.9092 72.2003C15.9092 68.965 16.2698 65.7713 17.0296 62.6586C17.5105 60.8975 18.15 59.178 18.7487 57.4168C20.1889 53.7301 18.5492 49.5553 14.9883 47.9977C14.8681 47.9977 14.8681 47.8751 14.7479 47.8751C13.8651 47.5057 12.9192 47.3186 11.965 47.3247C11.0108 47.3309 10.0673 47.5301 9.18907 47.9109C8.31088 48.2916 7.51547 48.8464 6.84892 49.543C6.18237 50.2395 5.65793 51.0641 5.30596 51.969C4.46601 54.193 3.74524 56.462 3.14685 58.7659C1.27365 65.4729 0.226116 72.3917 0.0283958 79.3628C-1.13291 124.241 33.4706 161.586 77.3141 162.773C121.158 163.96 157.641 128.541 158.8 83.6602C158.8 82.9243 158.841 82.2277 158.841 81.4894V79.402C158.762 63.0241 147.24 49.0206 131.48 46.1949ZM125 89.8047C119.919 89.8047 115.798 85.5857 115.798 80.3856C115.796 79.6954 115.877 79.0076 116.039 78.3374C116.403 76.581 117.258 74.9697 118.5 73.6983C119.743 72.4268 121.32 71.5496 123.04 71.1726C125.435 70.6437 127.938 71.1054 130 72.4563C132.062 73.8072 133.515 75.9372 134.04 78.3791C134.201 79.0341 134.24 79.689 134.24 80.3856C134.319 85.5048 130.359 89.7213 125.358 89.8047H125Z" fill="#F4F4F4"></path>
+</svg>
+    <span class="divider" aria-hidden="true"></span>
+    <span class="product"><small>Time zone planner</small><b>Zonazoo</b></span>
+  </div>
+  <div class="group">
+    <label><input type="checkbox" id="hour12"> 12-hour</label>
+    <label>Snap <select id="snap"><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="30">30 min</option><option value="60">60 min</option></select></label>
+  </div>
+  <div class="group">
+    <button id="themeBtn" type="button" aria-label="Colour theme"></button>
+  </div>
+  <div class="group">
+    <button id="editBtn" class="primary"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Edit people</button>
+    <button id="exportBtn" title="Download config as YAML"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>Export</button>
+    <button id="importBtn" title="Load a YAML config file"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></svg>Import</button>
+    <input type="file" id="importFile" accept=".yaml,.yml,.json,text/yaml,application/json" hidden>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <div class="toolbar">
+      <div class="day" id="dayTitle"></div>
+      <div class="group">
+        <button id="prevDay" title="Previous day" aria-label="Previous day" class="icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+        <input type="date" id="dateInput" aria-label="Date">
+        <button id="nextDay" title="Next day" aria-label="Next day" class="icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+        <button id="todayBtn">Today</button>
+      </div>
+      <div class="group">
+        <label>Length
+          <select id="lenSel">
+            <option value="15">15 min</option><option value="30">30 min</option><option value="45">45 min</option>
+            <option value="60">1 h</option><option value="90">1 h 30</option><option value="120">2 h</option>
+            <option value="180">3 h</option><option value="custom" hidden>custom</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="tl-wrap">
+      <div class="tl" id="tl">
+        <div class="tl-head"><div>Person</div><div id="tlHeadMid">Timeline — drag to propose a meeting</div><div>Meeting (local)</div></div>
+        <div class="rows" id="rows">
+          <div id="rowList"></div>
+          <div class="layer" id="layer">
+            <div class="hover" id="hover"></div>
+            <div class="now" id="now"></div>
+            <div class="sel" id="sel" tabindex="0" aria-label="Proposed meeting. Arrow keys move, Shift+arrows resize.">
+              <div class="h l" data-h="l"></div>
+              <div class="sel-label" id="selLabel"></div>
+              <div class="h r" data-h="r"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i class="c-work"></i>Working hours</span>
+      <span><i class="c-awake"></i>Awake</span>
+      <span><i class="c-night"></i>Night</span>
+      <span><i class="i-me"></i>You</span>
+      <span><i class="i-dst"></i>DST change</span>
+      <span><i class="i-now"></i>Now</span>
+      <span><i style="background:var(--sel-fill);border:2px solid var(--sel)"></i>Proposed meeting</span>
+      <span class="hint">Drag empty space to select — drag the box to move, drag its edges to resize. When focused, arrow keys move it and Shift+arrows resize it.</span>
+    </div>
+  </section>
+
+  <section class="card summary" id="summary"></section>
+</main>
+
+<dialog id="editor">
+  <form method="dialog" class="dlg">
+    <header>
+      <h2>Configure</h2>
+      <div class="tabs">
+        <button type="button" data-tab="people" class="active">People</button>
+        <button type="button" data-tab="yaml">YAML</button>
+      </div>
+      <button value="close" aria-label="Close">Done</button>
+    </header>
+    <div class="body" id="tab-people">
+      <div class="ed-grid" id="edList"></div>
+      <div class="ed-actions">
+        <button type="button" id="addPerson"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Add person</button>
+        <button type="button" id="sortPeople"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>Sort by UTC offset</button>
+      </div>
+      <div class="settings">
+        <label>Awake hours (lighter band)<input id="awakeHours" placeholder="07:00-22:00"></label>
+        <label>Default meeting length (min)<input id="defLen" type="number" min="5" max="720" step="5"></label>
+      </div>
+      <p class="hint">Time zone: IANA name, e.g. <code>Europe/Budapest</code>, <code>Asia/Tokyo</code>, <code>America/New_York</code> (start typing a city to search). Work hours are in the person's local time, e.g. <code>09:00-17:00</code> (can wrap past midnight). Abbreviation is optional: leave empty for automatic, or use <code>STD/DST</code> such as <code>CET/CEST</code>. Changes are saved in this browser automatically.</p>
+    </div>
+    <div class="body" id="tab-yaml" hidden>
+      <textarea id="yamlText" spellcheck="false" aria-label="YAML config"></textarea>
+      <div class="err" id="yamlErr"></div>
+      <div class="ed-actions">
+        <button type="button" class="primary" id="yamlApply">Apply YAML</button>
+        <button type="button" id="yamlReset">Revert</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<datalist id="tzlist"></datalist>
+<div class="toast" id="toast"></div>
+<div class="drop" id="drop">Drop a YAML config to import</div>
+
+<script>
+'use strict';
+/* =====================================================================
+   Zonazoo — static, single-file time zone planner.
+   Everything runs in the browser; config lives in localStorage and can be
+   exported/imported as YAML.
+   ===================================================================== */
+
+const $ = (s) => document.querySelector(s);
+const LS_CFG = 'zonazoo.config.v1';
+const LS_VIEW = 'zonazoo.view.v1';
+const MIN = 60000;
+const SLOT = 15; // minutes; resolution of the coloured bands
+const WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const BROWSER_TZ = (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch { return 'UTC'; } })();
+
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch { /* storage unavailable */ } },
+};
+const pad = (n) => String(n).padStart(2, '0');
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// Line icons (Lucide geometry, 1.5px stroke) — the brand avoids glyphs and emoji as icons.
+const ICONS = {
+  up: '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
+  down: '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  monitor: '<rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>',
+  copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+};
+const icon = (n) => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
+
+/* ---------------------------------------------------------------------
+   Time zone helpers (pure Intl, DST-aware because every instant is
+   converted individually)
+   --------------------------------------------------------------------- */
+const fmtCache = new Map();
+function wallFmt(tz) {
+  let f = fmtCache.get(tz);
+  if (!f) {
+    f = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric',
+      hour: 'numeric', minute: 'numeric', second: 'numeric',
+    });
+    fmtCache.set(tz, f);
+  }
+  return f;
+}
+/** Wall-clock parts of instant `ms` in `tz`. */
+function wall(tz, ms) {
+  const o = {};
+  for (const p of wallFmt(tz).formatToParts(new Date(ms))) o[p.type] = p.value;
+  const y = +o.year, mo = +o.month, d = +o.day;
+  return { y, mo, d, h: (+o.hour) % 24, mi: +o.minute, s: +o.second, wd: new Date(Date.UTC(y, mo - 1, d)).getUTCDay() };
+}
+/** UTC offset of `tz` at instant `ms`, in minutes (east positive). */
+function offsetMin(tz, ms) {
+  const w = wall(tz, ms);
+  return Math.round((Date.UTC(w.y, w.mo - 1, w.d, w.h, w.mi, w.s) - Math.floor(ms / 1000) * 1000) / MIN);
+}
+/** Instant for a wall-clock time in `tz`. */
+function zonedToUtc(tz, y, mo, d, h = 0, mi = 0) {
+  const guess = Date.UTC(y, mo - 1, d, h, mi);
+  let t = guess - offsetMin(tz, guess) * MIN;
+  t = guess - offsetMin(tz, t) * MIN;
+  return t;
+}
+function validTz(tz) {
+  if (!tz || typeof tz !== 'string') return false;
+  try { new Intl.DateTimeFormat('en-US', { timeZone: tz }); return true; } catch { return false; }
+}
+function cityFromTz(tz) {
+  const last = String(tz || '').split('/').pop() || '';
+  return last.replace(/_/g, ' ');
+}
+function fmtOff(min) {
+  const sign = min < 0 ? '-' : '+';
+  const a = Math.abs(min), h = Math.floor(a / 60), m = a % 60;
+  return `UTC${sign}${h}${m ? ':' + pad(m) : ''}`;
+}
+function fmtRel(min) {
+  if (min === 0) return 'same as you';
+  const sign = min < 0 ? '−' : '+';
+  const a = Math.abs(min), h = Math.floor(a / 60), m = a % 60;
+  return `${sign}${h}${m ? ':' + pad(m) : ''}h`;
+}
+function isDst(tz, ms) {
+  const y = wall(tz, ms).y;
+  const jan = offsetMin(tz, Date.UTC(y, 0, 1)), jul = offsetMin(tz, Date.UTC(y, 6, 1));
+  return jan !== jul && offsetMin(tz, ms) > Math.min(jan, jul);
+}
+
+// Abbreviations that browsers' Intl data usually only exposes as "GMT+x".
+// [standard, daylight] or a single string when there is no DST.
+const ABBR = {
+  'Asia/Tokyo': 'JST', 'Asia/Seoul': 'KST', 'Asia/Shanghai': 'CST', 'Asia/Chongqing': 'CST', 'Asia/Taipei': 'CST',
+  'Asia/Hong_Kong': 'HKT', 'Asia/Macau': 'CST', 'Asia/Singapore': 'SGT', 'Asia/Kuala_Lumpur': 'MYT', 'Asia/Manila': 'PHT',
+  'Asia/Jakarta': 'WIB', 'Asia/Makassar': 'WITA', 'Asia/Jayapura': 'WIT', 'Asia/Bangkok': 'ICT', 'Asia/Ho_Chi_Minh': 'ICT',
+  'Asia/Saigon': 'ICT', 'Asia/Phnom_Penh': 'ICT', 'Asia/Yangon': 'MMT', 'Asia/Rangoon': 'MMT', 'Asia/Kolkata': 'IST',
+  'Asia/Calcutta': 'IST', 'Asia/Colombo': 'IST', 'Asia/Karachi': 'PKT', 'Asia/Dhaka': 'BST', 'Asia/Kathmandu': 'NPT',
+  'Asia/Katmandu': 'NPT', 'Asia/Thimphu': 'BTT', 'Asia/Tashkent': 'UZT', 'Asia/Almaty': 'ALMT', 'Asia/Dubai': 'GST',
+  'Asia/Muscat': 'GST', 'Asia/Riyadh': 'AST', 'Asia/Qatar': 'AST', 'Asia/Kuwait': 'AST', 'Asia/Bahrain': 'AST',
+  'Asia/Baghdad': 'AST', 'Asia/Tehran': 'IRST', 'Asia/Kabul': 'AFT', 'Asia/Tbilisi': 'GET', 'Asia/Yerevan': 'AMT',
+  'Asia/Baku': 'AZT', 'Asia/Jerusalem': ['IST', 'IDT'], 'Asia/Tel_Aviv': ['IST', 'IDT'], 'Asia/Beirut': ['EET', 'EEST'],
+  'Asia/Amman': 'AST', 'Asia/Vladivostok': 'VLAT', 'Asia/Yekaterinburg': 'YEKT', 'Asia/Novosibirsk': 'NOVT',
+  'Europe/Istanbul': 'TRT', 'Europe/Moscow': 'MSK', 'Europe/Minsk': 'MSK', 'Europe/Samara': 'SAMT',
+  'Europe/London': ['GMT', 'BST'], 'Europe/Dublin': ['GMT', 'IST'], 'Europe/Lisbon': ['WET', 'WEST'],
+  'Atlantic/Canary': ['WET', 'WEST'], 'Atlantic/Reykjavik': 'GMT', 'Atlantic/Azores': ['AZOT', 'AZOST'],
+  'Europe/Kiev': ['EET', 'EEST'], 'Europe/Kyiv': ['EET', 'EEST'],
+  'Africa/Cairo': ['EET', 'EEST'], 'Africa/Johannesburg': 'SAST', 'Africa/Lagos': 'WAT', 'Africa/Nairobi': 'EAT',
+  'Africa/Addis_Ababa': 'EAT', 'Africa/Accra': 'GMT', 'Africa/Casablanca': 'WEST', 'Africa/Algiers': 'CET', 'Africa/Tunis': 'CET',
+  'America/Sao_Paulo': 'BRT', 'America/Argentina/Buenos_Aires': 'ART', 'America/Buenos_Aires': 'ART',
+  'America/Montevideo': 'UYT', 'America/Bogota': 'COT', 'America/Lima': 'PET', 'America/Caracas': 'VET',
+  'America/Santiago': ['CLT', 'CLST'], 'America/La_Paz': 'BOT', 'America/Guayaquil': 'ECT', 'America/Mexico_City': 'CST',
+  'Australia/Sydney': ['AEST', 'AEDT'], 'Australia/Melbourne': ['AEST', 'AEDT'], 'Australia/Hobart': ['AEST', 'AEDT'],
+  'Australia/Canberra': ['AEST', 'AEDT'], 'Australia/Brisbane': 'AEST', 'Australia/Adelaide': ['ACST', 'ACDT'],
+  'Australia/Darwin': 'ACST', 'Australia/Perth': 'AWST', 'Pacific/Auckland': ['NZST', 'NZDT'],
+  'Pacific/Honolulu': 'HST', 'Pacific/Fiji': 'FJT', 'Pacific/Guam': 'ChST', 'UTC': 'UTC', 'Etc/UTC': 'UTC',
+};
+const ABBR_L = Object.fromEntries(Object.entries(ABBR).map(([k, v]) => [k.toLowerCase(), v]));
+const nameFmtCache = new Map();
+function intlShortName(tz, locale, ms) {
+  const key = locale + '|' + tz;
+  let f = nameFmtCache.get(key);
+  if (!f) { f = new Intl.DateTimeFormat(locale, { timeZone: tz, timeZoneName: 'short' }); nameFmtCache.set(key, f); }
+  return (f.formatToParts(new Date(ms)).find((p) => p.type === 'timeZoneName') || {}).value || '';
+}
+const abbrCache = new Map();
+/** Abbreviation for a person at instant ms, e.g. "JST", "CEST", falling back to "UTC+x". */
+function abbrFor(p, ms) {
+  const tz = p.timezone, off = offsetMin(tz, ms);
+  const dst = isDst(tz, ms);
+  const key = `${tz}|${off}|${dst}|${p.abbr || ''}`;
+  if (abbrCache.has(key)) return abbrCache.get(key);
+  let out = '';
+  if (p.abbr) {
+    const parts = String(p.abbr).split('/').map((s) => s.trim()).filter(Boolean);
+    out = parts.length > 1 ? parts[dst ? 1 : 0] : parts[0];
+  }
+  if (!out) {
+    const m = ABBR_L[tz.toLowerCase()];
+    if (m) out = Array.isArray(m) ? m[dst ? 1 : 0] : m;
+  }
+  if (!out) {
+    for (const loc of ['en-US', 'en-GB', 'en-AU', 'en-IN', 'en-NZ', 'en-CA']) {
+      let n = '';
+      try { n = intlShortName(tz, loc, ms); } catch { continue; }
+      if (/^[A-Z][A-Za-z]{1,5}$/.test(n) && !/^(GMT|UTC)[+-−]/.test(n)) { out = n; break; }
+    }
+  }
+  if (!out) out = fmtOff(off);
+  abbrCache.set(key, out);
+  return out;
+}
+/** Next UTC offset change of `tz` at or after `from` (searches ~13 months). */
+const trCache = new Map();
+function nextTransition(tz, from) {
+  const key = tz + '|' + from;
+  if (trCache.has(key)) return trCache.get(key);
+  const DAY = 864e5;
+  let a = Math.floor(from / MIN) * MIN, oa = offsetMin(tz, a), res = null;
+  for (let i = 0; i < 400; i++) {
+    const b = a + DAY, ob = offsetMin(tz, b);
+    if (ob !== oa) {
+      let lo = a, hi = b;
+      while (hi - lo > MIN) {
+        const mid = Math.floor((lo + hi) / 2 / MIN) * MIN;
+        if (offsetMin(tz, mid) === oa) lo = mid; else hi = mid;
+      }
+      res = { at: hi, from: oa, to: ob };
+      break;
+    }
+    a = b;
+  }
+  trCache.set(key, res);
+  return res;
+}
+
+/* ---------------------------------------------------------------------
+   Work hours "HH:MM-HH:MM"
+   --------------------------------------------------------------------- */
+function parseWH(s) {
+  const m = String(s ?? '').trim().match(/^(\d{1,2})(?::(\d{2}))?\s*[-–]\s*(\d{1,2})(?::(\d{2}))?$/);
+  if (!m) return null;
+  const a = +m[1] * 60 + +(m[2] || 0), b = +m[3] * 60 + +(m[4] || 0);
+  if (a > 1440 || b > 1440 || +(m[2] || 0) > 59 || +(m[4] || 0) > 59 || a === b) return null;
+  return { s: a % 1440, e: b === 1440 ? 1440 : b };
+}
+const fmtHHMM = (m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
+const fmtWH = (w) => `${fmtHHMM(w.s)}-${fmtHHMM(w.e)}`;
+const inWH = (w, m) => (w.s < w.e ? m >= w.s && m < w.e : m >= w.s || m < w.e);
+
+/* ---------------------------------------------------------------------
+   Minimal YAML (subset) parser / serializer — no dependencies.
+   Supports: nested mappings, lists (incl. lists of mappings), comments,
+   quoted/plain scalars, numbers, booleans, null, and [] / [a, b] flow lists.
+   JSON files are accepted too.
+   --------------------------------------------------------------------- */
+function parseYAML(src) {
+  const trimmed = src.trim();
+  if (trimmed.startsWith('{')) return JSON.parse(trimmed);
+  const lines = [];
+  src.replace(/\r\n?/g, '\n').split('\n').forEach((raw, idx) => {
+    const s = stripComment(raw);
+    if (!s.trim() || /^(---|\.\.\.)\s*$/.test(s)) return;
+    const lead = s.match(/^[ \t]*/)[0];
+    if (lead.includes('\t')) throw new Error(`Line ${idx + 1}: use spaces, not tabs, for indentation`);
+    lines.push({ ind: lead.length, text: s.trim(), n: idx + 1 });
+  });
+  let i = 0;
+  const isSeq = (t) => t === '-' || t.startsWith('- ');
+  const KV = /^("(?:[^"\\]|\\.)*"|'(?:[^']|'')*'|[^\s"'#\-\[{][^:]*?|-[^\s][^:]*?)\s*:(?:\s+(.*))?$/;
+  const fail = (L, msg) => { throw new Error(`Line ${L.n}: ${msg}`); };
+
+  function block() {
+    const L = lines[i];
+    return isSeq(L.text) ? seq(L.ind) : map(L.ind);
+  }
+  function map(ind) {
+    const obj = {};
+    while (i < lines.length && lines[i].ind === ind && !isSeq(lines[i].text)) {
+      const L = lines[i];
+      const m = L.text.match(KV);
+      if (!m) fail(L, `expected "key: value", got "${L.text}"`);
+      const key = unquote(m[1]);
+      i++;
+      if (m[2] !== undefined && m[2] !== '') obj[key] = scalar(m[2], L);
+      else if (i < lines.length && lines[i].ind > ind) obj[key] = block();
+      else if (i < lines.length && lines[i].ind === ind && isSeq(lines[i].text)) obj[key] = seq(ind);
+      else obj[key] = null;
+    }
+    if (i < lines.length && lines[i].ind > ind) fail(lines[i], 'unexpected indentation');
+    return obj;
+  }
+  function seq(ind) {
+    const arr = [];
+    while (i < lines.length && lines[i].ind === ind && isSeq(lines[i].text)) {
+      const L = lines[i];
+      const rest = L.text.replace(/^-\s*/, '');
+      if (!rest) {
+        i++;
+        arr.push(i < lines.length && lines[i].ind > ind ? block() : null);
+      } else if (KV.test(rest) && !/^["'].*["']$/.test(rest)) {
+        const col = ind + (L.text.length - rest.length);
+        lines[i] = { ind: col, text: rest, n: L.n };
+        arr.push(map(col));
+      } else {
+        arr.push(scalar(rest, L));
+        i++;
+      }
+    }
+    return arr;
+  }
+  if (!lines.length) return {};
+  const out = block();
+  if (i < lines.length) fail(lines[i], 'unexpected content (check indentation)');
+  return out;
+}
+function stripComment(line) {
+  let q = null;
+  for (let k = 0; k < line.length; k++) {
+    const c = line[k];
+    if (q) { if (c === '\\' && q === '"') k++; else if (c === q) q = null; }
+    else if (c === '"' || c === "'") { if (k === 0 || /[\s:\-\[,]/.test(line[k - 1])) q = c; }
+    else if (c === '#' && (k === 0 || /\s/.test(line[k - 1]))) return line.slice(0, k);
+  }
+  return line;
+}
+function unquote(s) {
+  s = s.trim();
+  if (s.startsWith('"') && s.endsWith('"') && s.length > 1) return JSON.parse(s);
+  if (s.startsWith("'") && s.endsWith("'") && s.length > 1) return s.slice(1, -1).replace(/''/g, "'");
+  return s;
+}
+function scalar(s, L) {
+  s = s.trim();
+  if (s.startsWith('"') || s.startsWith("'")) {
+    try { return unquote(s); } catch { throw new Error(`Line ${L.n}: bad quoted string`); }
+  }
+  if (s.startsWith('[') && s.endsWith(']')) {
+    const inner = s.slice(1, -1).trim();
+    return inner ? inner.split(',').map((x) => scalar(x, L)) : [];
+  }
+  if (s === '{}') return {};
+  if (/^(null|~)$/i.test(s)) return null;
+  if (/^(true|yes|on)$/i.test(s)) return true;
+  if (/^(false|no|off)$/i.test(s)) return false;
+  if (/^[-+]?\d+(\.\d+)?$/.test(s)) return Number(s);
+  return s;
+}
+function yq(v) {
+  if (v === null || v === undefined) return '""';
+  if (typeof v === 'number' || typeof v === 'boolean') return String(v);
+  const s = String(v);
+  if (/^[\p{L}][\p{L}\p{N}_\/+\-. ()']*$/u.test(s) && !/^(true|false|yes|no|on|off|null)$/i.test(s) && s === s.trim()) return s;
+  return JSON.stringify(s);
+}
+function toYAML(cfg) {
+  const person = (p, ind, first) => {
+    const lines = [];
+    const put = (k, v) => lines.push(`${lines.length === 0 && first ? first : ind}${k}: ${yq(v)}`);
+    put('name', p.name); put('city', p.city); put('timezone', p.timezone);
+    lines.push(`${ind}workHours: ${JSON.stringify(p.workHours)}`);
+    if (p.abbr) put('abbr', p.abbr);
+    return lines.join('\n');
+  };
+  const s = cfg.settings;
+  return [
+    '# Zonazoo config',
+    '#   timezone:  IANA name, e.g. Europe/Budapest, Asia/Tokyo, America/New_York',
+    '#   workHours: "HH:MM-HH:MM" in that person\'s local time (may wrap past midnight)',
+    '#   abbr:      optional override, e.g. "JST" or "CET/CEST" (standard/daylight)',
+    'settings:',
+    `  hour12: ${!!s.hour12}`,
+    `  snapMinutes: ${s.snapMinutes}`,
+    `  defaultMeetingMinutes: ${s.defaultMeetingMinutes}`,
+    `  awakeHours: ${JSON.stringify(s.awakeHours)}`,
+    '',
+    '# You (shown on top, highlighted)',
+    'me:',
+    person(cfg.me, '  '),
+    '',
+    cfg.people.length ? 'people:' : 'people: []',
+    ...cfg.people.map((p) => person(p, '    ', '  - ')),
+    '',
+  ].join('\n');
+}
+
+/* ---------------------------------------------------------------------
+   Config model
+   --------------------------------------------------------------------- */
+function defaultConfig() {
+  return {
+    settings: { hour12: false, snapMinutes: 15, defaultMeetingMinutes: 60, awakeHours: '07:00-22:00' },
+    me: { name: 'Me', city: cityFromTz(BROWSER_TZ), timezone: BROWSER_TZ, workHours: '09:00-17:00' },
+    people: [
+      { name: 'Alex', city: 'New York', timezone: 'America/New_York', workHours: '09:00-17:00' },
+      { name: 'Sam', city: 'London', timezone: 'Europe/London', workHours: '09:00-17:30' },
+      { name: 'Priya', city: 'Bengaluru', timezone: 'Asia/Kolkata', workHours: '10:00-18:30' },
+      { name: 'Taro', city: 'Tokyo', timezone: 'Asia/Tokyo', workHours: '09:00-18:00' },
+    ],
+  };
+}
+function normalizeConfig(raw) {
+  const errs = [];
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error('The config must be a mapping with "me" and "people".');
+  const s = raw.settings && typeof raw.settings === 'object' ? raw.settings : {};
+  const awake = parseWH(s.awakeHours ?? '07:00-22:00');
+  if (s.awakeHours != null && !awake) errs.push(`settings.awakeHours: "${s.awakeHours}" should look like 07:00-22:00`);
+  const settings = {
+    hour12: s.hour12 === true,
+    snapMinutes: [5, 10, 15, 30, 60].includes(+s.snapMinutes) ? +s.snapMinutes : 15,
+    defaultMeetingMinutes: clamp(Math.round(+s.defaultMeetingMinutes || 60), 5, 720),
+    awakeHours: fmtWH(awake || parseWH('07:00-22:00')),
+  };
+  const person = (p, where, fallbackName) => {
+    if (!p || typeof p !== 'object' || Array.isArray(p)) { errs.push(`${where}: expected a mapping`); return null; }
+    const tz = String(p.timezone ?? p.tz ?? '').trim();
+    if (!validTz(tz)) { errs.push(`${where}: unknown timezone "${tz}"`); return null; }
+    const whRaw = p.workHours ?? '09:00-17:00';
+    const wh = parseWH(whRaw);
+    if (!wh) errs.push(`${where}: workHours "${whRaw}" should look like 09:00-17:00 (using 09:00-17:00)`);
+    const o = {
+      name: String(p.name ?? '').trim() || fallbackName || cityFromTz(tz),
+      city: String(p.city ?? '').trim() || cityFromTz(tz),
+      timezone: tz,
+      workHours: fmtWH(wh || parseWH('09:00-17:00')),
+    };
+    if (p.abbr) o.abbr = String(p.abbr).trim();
+    return o;
+  };
+  const me = person(raw.me ?? { timezone: BROWSER_TZ }, 'me', 'Me') ||
+    { name: 'Me', city: cityFromTz(BROWSER_TZ), timezone: BROWSER_TZ, workHours: '09:00-17:00' };
+  if (raw.people != null && !Array.isArray(raw.people)) errs.push('people: expected a list ("- name: …" entries)');
+  const people = (Array.isArray(raw.people) ? raw.people : []).map((p, i) => person(p, `people #${i + 1}`)).filter(Boolean);
+  return { cfg: { settings, me, people }, errs };
+}
+function loadConfig() {
+  const txt = store.get(LS_CFG);
+  if (txt) {
+    try { return normalizeConfig(JSON.parse(txt)).cfg; } catch { /* fall through */ }
+  }
+  return defaultConfig();
+}
+function saveConfig() { store.set(LS_CFG, JSON.stringify(cfg)); }
+
+/* ---------------------------------------------------------------------
+   State
+   --------------------------------------------------------------------- */
+let cfg = loadConfig();
+const state = { dateStr: '', dayStart: 0, dayEnd: 0, totalMin: 1440, sel: { start: 540, dur: 60 } };
+(() => {
+  try {
+    const v = JSON.parse(store.get(LS_VIEW) || 'null');
+    if (v && Number.isFinite(v.start) && Number.isFinite(v.dur)) state.sel = { start: v.start, dur: v.dur };
+    else state.sel = { start: parseWH(cfg.me.workHours).s + 60 * 4, dur: cfg.settings.defaultMeetingMinutes };
+  } catch { /* ignore */ }
+})();
+const saveView = () => store.set(LS_VIEW, JSON.stringify(state.sel));
+const allPeople = () => [{ ...cfg.me, isMe: true }, ...cfg.people];
+function todayStr() { const w = wall(cfg.me.timezone, Date.now()); return `${w.y}-${pad(w.mo)}-${pad(w.d)}`; }
+function shiftDate(str, days) {
+  const [y, m, d] = str.split('-').map(Number);
+  const t = new Date(Date.UTC(y, m - 1, d + days));
+  return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`;
+}
+function computeDay() {
+  const tz = cfg.me.timezone;
+  const [y, m, d] = state.dateStr.split('-').map(Number);
+  const [y2, m2, d2] = shiftDate(state.dateStr, 1).split('-').map(Number);
+  state.dayStart = zonedToUtc(tz, y, m, d, 0, 0);
+  state.dayEnd = zonedToUtc(tz, y2, m2, d2, 0, 0);
+  state.totalMin = Math.round((state.dayEnd - state.dayStart) / MIN);
+  const S = state.sel;
+  S.dur = clamp(S.dur, cfg.settings.snapMinutes, state.totalMin);
+  S.start = clamp(S.start, 0, state.totalMin - S.dur);
+}
+
+/* ---------------------------------------------------------------------
+   Formatting
+   --------------------------------------------------------------------- */
+function fmtT(h, mi) {
+  if (!cfg.settings.hour12) return `${pad(h)}:${pad(mi)}`;
+  const h12 = ((h + 11) % 12) + 1;
+  return `${h12}:${pad(mi)} ${h < 12 ? 'am' : 'pm'}`;
+}
+const fmtW = (w) => fmtT(w.h, w.mi);
+const fmtDateShort = (w) => `${WD[w.wd]} ${w.d} ${MON[w.mo - 1]}`;
+function fmtDur(min) {
+  const h = Math.floor(min / 60), m = min % 60;
+  return h && m ? `${h}h ${m}m` : h ? `${h}h` : `${m}m`;
+}
+function dayDiff(a, b) { return Math.round((Date.UTC(a.y, a.mo - 1, a.d) - Date.UTC(b.y, b.mo - 1, b.d)) / 864e5); }
+
+/* ---------------------------------------------------------------------
+   Rendering: timeline rows
+   --------------------------------------------------------------------- */
+const rowList = $('#rowList');
+function category(p, localMin, wh, awake) {
+  if (inWH(wh, localMin)) return 'work';
+  return inWH(awake, localMin) ? 'awake' : 'night';
+}
+function rowHTML(p, idx) {
+  const { dayStart, dayEnd, totalMin } = state;
+  const tz = p.timezone;
+  const wh = parseWH(p.workHours), awake = parseWH(cfg.settings.awakeHours);
+  const mid = dayStart + (totalMin / 2) * MIN;
+  const off = offsetMin(tz, mid), myOff = offsetMin(cfg.me.timezone, mid);
+  const now = wall(tz, Date.now());
+  const ab = abbrFor(p, mid);
+
+  // Coloured bands (15-min resolution) + hour labels at each of *your* hour marks.
+  const slots = Math.ceil(totalMin / SLOT);
+  const segs = [], labels = [];
+  let cur = null;
+  for (let j = 0; j < slots; j++) {
+    const t = dayStart + j * SLOT * MIN;
+    const w = wall(tz, t);
+    const lm = w.h * 60 + w.mi;
+    const cat = category(p, lm, wh, awake);
+    if (cur && cur.cat === cat) cur.len += SLOT;
+    else { cur = { cat, from: j * SLOT, len: SLOT }; segs.push(cur); }
+    if ((j * SLOT) % 60 === 0) labels.push({ at: j * SLOT, w, cat, t });
+  }
+  const pct = (m) => (m / totalMin) * 100;
+  let track = segs.map((s) => `<div class="seg c-${s.cat}" style="left:${pct(s.from)}%;width:${pct(Math.min(s.len, totalMin - s.from))}%"></div>`).join('');
+  track += labels.map((l) => {
+    const w = l.w;
+    const width = pct(Math.min(60, totalMin - l.at));
+    const isMid = w.h === 0;
+    let main, sub = '';
+    if (isMid) { main = WD[w.wd]; sub = `${w.d} ${MON[w.mo - 1]}`; }
+    else if (cfg.settings.hour12) { main = ((w.h + 11) % 12) + 1; sub = (w.mi ? ':' + pad(w.mi) + ' ' : '') + (w.h < 12 ? 'am' : 'pm'); }
+    else { main = w.h; sub = w.mi ? ':' + pad(w.mi) : ''; }
+    const title = `${p.name}: ${fmtDateShort(w)}, ${fmtW(w)} ${abbrFor(p, l.t)}`;
+    return `<div class="lb t-${l.cat}${isMid ? ' mid' : ''}" style="left:${pct(l.at)}%;width:${width}%" title="${esc(title)}"><b>${main}</b><i>${sub}</i></div>`;
+  }).join('');
+
+  // DST: next transition from the start of the viewed day.
+  const tr = nextTransition(tz, dayStart);
+  let dstText = 'No DST', dstClass = '', dstTitle = 'This zone has no daylight saving changes in the next 13 months.';
+  if (tr) {
+    const lw = wall(tz, tr.at);
+    const newAb = abbrFor(p, tr.at);
+    const delta = tr.to - tr.from;
+    const days = Math.ceil((tr.at - Date.now()) / 864e5);
+    dstText = `${delta > 0 ? 'DST starts' : 'DST ends'} ${lw.d} ${MON[lw.mo - 1]} → ${newAb} ${fmtOff(tr.to)}`;
+    dstTitle = `Clocks go ${delta > 0 ? 'forward' : 'back'} ${fmtDur(Math.abs(delta))} on ${fmtDateShort(lw)} ${lw.y} (${fmtW(lw)} local), becoming ${newAb} (${fmtOff(tr.to)}).`;
+    if (days >= 0 && days <= 14) dstClass = ' soon';
+    if (tr.at < dayEnd) {
+      track += `<div class="dst-mark" style="left:${pct((tr.at - dayStart) / MIN)}%" title="${esc(dstTitle)}"><span>${delta > 0 ? '+' : '−'}${fmtDur(Math.abs(delta))} ${esc(newAb)}</span></div>`;
+    }
+  }
+
+  const rel = p.isMe ? '' : ` · ${fmtRel(off - myOff)}`;
+  return `
+  <div class="row${p.isMe ? ' me' : ''}" data-i="${idx}">
+    <div class="info">
+      <div class="n" title="${esc(p.name)} · ${esc(p.city)}">${esc(p.name)} <span class="city">· ${esc(p.city)}</span>${p.isMe ? '<span class="chip">YOU</span>' : ''}</div>
+      <div class="z" title="${esc(tz)}"><b>${esc(ab)}</b> · ${fmtOff(off)}${rel} · now ${fmtW(now)} ${WD[now.wd]}</div>
+      <div class="d${dstClass}" title="${esc(dstTitle)}">${dstClass ? icon('alert') : ''}<span>${esc(dstText)}</span></div>
+    </div>
+    <div class="track">${track}</div>
+    <div class="meet"></div>
+  </div>`;
+}
+function overlapHTML() {
+  const { dayStart, totalMin } = state;
+  const list = allPeople().map((p) => ({ p, wh: parseWH(p.workHours) }));
+  const awake = parseWH(cfg.settings.awakeHours);
+  const slots = Math.ceil(totalMin / SLOT);
+  const segs = [];
+  let cur = null;
+  for (let j = 0; j < slots; j++) {
+    const t = dayStart + j * SLOT * MIN;
+    let allWork = true, allAwake = true;
+    for (const { p, wh } of list) {
+      const w = wall(p.timezone, t), lm = w.h * 60 + w.mi;
+      const c = category(p, lm, wh, awake);
+      if (c !== 'work') allWork = false;
+      if (c === 'night') allAwake = false;
+    }
+    const cat = allWork ? 'allwork' : allAwake ? 'allawake' : 'none';
+    if (cur && cur.cat === cat) cur.len += SLOT;
+    else { cur = { cat, from: j * SLOT, len: SLOT }; segs.push(cur); }
+  }
+  const pct = (m) => (m / totalMin) * 100;
+  const track = segs.filter((s) => s.cat !== 'none')
+    .map((s) => `<div class="seg c-${s.cat}" style="left:${pct(s.from)}%;width:${pct(Math.min(s.len, totalMin - s.from))}%" title="${s.cat === 'allwork' ? 'Everyone in working hours' : 'Everyone awake'}"></div>`).join('');
+  return `<div class="row overlap"><div class="info"><div class="n">Overlap</div></div><div class="track">${track}</div><div class="meet"><div class="s" id="overlapVerdict"></div></div></div>`;
+}
+function renderRows() {
+  rowList.innerHTML = allPeople().map(rowHTML).join('') + overlapHTML();
+}
+function renderHead() {
+  const w = wall(cfg.me.timezone, state.dayStart + 12 * 60 * MIN);
+  const ab = abbrFor(cfg.me, state.dayStart + 12 * 60 * MIN);
+  const long = new Date(Date.UTC(w.y, w.mo - 1, w.d)).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+  const note = state.totalMin !== 1440 ? ` · ${fmtDur(state.totalMin)} day (DST change)` : '';
+  $('#dayTitle').innerHTML = `<span class="eyebrow">Your day</span><b>${esc(long)}</b><small>Your time: ${esc(cfg.me.city)} · ${esc(ab)}${esc(note)}</small>`;
+  $('#dateInput').value = state.dateStr;
+  $('#hour12').checked = cfg.settings.hour12;
+  $('#snap').value = String(cfg.settings.snapMinutes);
+}
+
+/* ---------------------------------------------------------------------
+   Rendering: selection, meeting column, summary
+   --------------------------------------------------------------------- */
+const selEl = $('#sel'), layer = $('#layer');
+function meetingInfo(p) {
+  const s = state.dayStart + state.sel.start * MIN, e = s + state.sel.dur * MIN;
+  const ws = wall(p.timezone, s), we = wall(p.timezone, e);
+  const wh = parseWH(p.workHours), awake = parseWH(cfg.settings.awakeHours);
+  let allWork = true, anyNight = false;
+  for (let t = s; t < e; t += SLOT * MIN) {
+    const w = wall(p.timezone, t), c = category(p, w.h * 60 + w.mi, wh, awake);
+    if (c !== 'work') allWork = false;
+    if (c === 'night') anyNight = true;
+  }
+  const status = allWork ? 'good' : anyNight ? 'bad' : 'ok';
+  const my = wall(cfg.me.timezone, s);
+  return {
+    ws, we, status, abS: abbrFor(p, s), abE: abbrFor(p, e), offS: offsetMin(p.timezone, s),
+    dd: dayDiff(ws, my), endNextDay: dayDiff(we, ws) !== 0 && !(we.h === 0 && we.mi === 0 && dayDiff(we, ws) === 1),
+  };
+}
+const STATUS_TEXT = { good: 'in working hours', ok: 'outside working hours', bad: 'during their night' };
+function renderSel() {
+  const T = state.totalMin, S = state.sel;
+  selEl.style.left = (S.start / T) * 100 + '%';
+  selEl.style.width = (S.dur / T) * 100 + '%';
+  const s = state.dayStart + S.start * MIN;
+  const ws = wall(cfg.me.timezone, s), we = wall(cfg.me.timezone, s + S.dur * MIN);
+  $('#selLabel').textContent = `${fmtW(ws)} – ${fmtW(we)} · ${fmtDur(S.dur)}`;
+  const len = $('#lenSel');
+  len.value = [...len.options].some((o) => o.value === String(S.dur)) ? String(S.dur) : 'custom';
+
+  const people = allPeople();
+  const infos = people.map(meetingInfo);
+  rowList.querySelectorAll('.row[data-i]').forEach((row) => {
+    const i = +row.dataset.i, m = infos[i];
+    const shift = m.dd ? ` · ${m.dd > 0 ? '+' : ''}${m.dd} day` : '';
+    row.querySelector('.meet').innerHTML =
+      `<div class="t" title="${esc(STATUS_TEXT[m.status])}"><span class="dot ${m.status}"></span>${fmtW(m.ws)} – ${fmtW(m.we)}</div>` +
+      `<div class="s">${esc(m.abS === m.abE ? m.abS : m.abS + '→' + m.abE)} · ${WD[m.ws.wd]} ${m.ws.d} ${MON[m.ws.mo - 1]}${shift}</div>`;
+  });
+  const counts = { good: 0, ok: 0, bad: 0 };
+  infos.forEach((m) => counts[m.status]++);
+  const verdict = counts.bad ? `<span class="dot bad"></span>${counts.bad} at night`
+    : counts.ok ? `<span class="dot ok"></span>${counts.ok} outside hours` : '<span class="dot good"></span>Everyone in hours';
+  const ov = $('#overlapVerdict');
+  if (ov) ov.innerHTML = verdict;
+  renderSummary(people, infos, ws, we, s, verdict);
+}
+function summaryText(people, infos, ws, we, s) {
+  const S = state.sel;
+  const u1 = new Date(s), u2 = new Date(s + S.dur * MIN);
+  const utc = (d) => fmtT(d.getUTCHours(), d.getUTCMinutes());
+  const me = infos[0];
+  const lines = [
+    `Proposed meeting: ${fmtDateShort(ws)} ${ws.y}, ${fmtW(ws)}–${fmtW(we)} ${me.abS} (${fmtOff(me.offS)}) · ${fmtDur(S.dur)}`,
+    `UTC: ${utc(u1)}–${utc(u2)}`,
+    '',
+  ];
+  people.forEach((p, i) => {
+    const m = infos[i];
+    lines.push(`• ${p.name} (${p.city}): ${fmtDateShort(m.ws)}, ${fmtW(m.ws)}–${fmtW(m.we)} ${m.abS} (${fmtOff(m.offS)})`);
+  });
+  return lines.join('\n');
+}
+let lastSummary = '';
+function renderSummary(people, infos, ws, we, s, verdict) {
+  const S = state.sel, me = infos[0];
+  const u1 = new Date(s), u2 = new Date(s + S.dur * MIN);
+  lastSummary = summaryText(people, infos, ws, we, s);
+  const rows = people.map((p, i) => {
+    const m = infos[i];
+    return `<tr class="${p.isMe ? 'me' : ''}">
+      <td><b>${esc(p.name)}</b>${p.isMe ? '<span class="chip">YOU</span>' : ''}</td>
+      <td>${esc(p.city)}</td>
+      <td><b>${fmtW(m.ws)} – ${fmtW(m.we)}</b></td>
+      <td>${esc(m.abS)} <span class="muted">${fmtOff(m.offS)}</span></td>
+      <td>${fmtDateShort(m.ws)}${m.dd ? ` <span class="muted">(${m.dd > 0 ? '+' : ''}${m.dd} day)</span>` : ''}</td>
+      <td><span class="dot ${m.status}"></span>${STATUS_TEXT[m.status]}</td>
+    </tr>`;
+  }).join('');
+  $('#summary').innerHTML = `
+    <span class="eyebrow">Proposed meeting</span>
+    <h2>${fmtDateShort(ws)} ${ws.y}, ${fmtW(ws)} – ${fmtW(we)} ${esc(me.abS)}</h2>
+    <div class="sub">${fmtDur(S.dur)} · UTC ${fmtT(u1.getUTCHours(), u1.getUTCMinutes())} – ${fmtT(u2.getUTCHours(), u2.getUTCMinutes())}&nbsp;·&nbsp;${verdict}</div>
+    <div class="tbl"><table>
+      <thead><tr><th>Person</th><th>City</th><th>Local time</th><th>Zone</th><th>Date</th><th>Fit</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+    <div class="actions"><button id="copyBtn">${icon('copy')}Copy as text</button><span class="muted">Paste into an invite or chat.</span></div>`;
+  $('#copyBtn').onclick = () => copyText(lastSummary);
+}
+function renderNow() {
+  const now = Date.now(), el = $('#now');
+  if (now >= state.dayStart && now < state.dayEnd) {
+    el.style.display = 'block';
+    el.style.left = ((now - state.dayStart) / (state.dayEnd - state.dayStart)) * 100 + '%';
+  } else el.style.display = 'none';
+}
+function renderAll() {
+  computeDay();
+  renderHead();
+  renderRows();
+  renderSel();
+  renderNow();
+}
+
+/* ---------------------------------------------------------------------
+   Interaction: dragging the meeting selection
+   --------------------------------------------------------------------- */
+const rowsEl = $('#rows');
+let drag = null;
+const snapM = () => cfg.settings.snapMinutes;
+const snapRound = (m) => clamp(Math.round(m / snapM()) * snapM(), 0, state.totalMin);
+function xToMin(x) {
+  const r = layer.getBoundingClientRect();
+  return clamp((x - r.left) / r.width, 0, 1) * state.totalMin;
+}
+function inTrackArea(x) { const r = layer.getBoundingClientRect(); return x >= r.left && x <= r.right; }
+rowsEl.addEventListener('pointerdown', (e) => {
+  if (e.button !== 0 || !inTrackArea(e.clientX)) return;
+  const m = xToMin(e.clientX), S = state.sel;
+  const handle = e.target.closest('[data-h]');
+  if (handle) drag = { mode: handle.dataset.h };
+  else if (e.target.closest('.sel')) drag = { mode: 'move', grab: m - S.start };
+  else drag = { mode: 'new', anchor: snapRound(m), click: m, x0: e.clientX, moved: false };
+  drag.pid = e.pointerId;
+  rowsEl.setPointerCapture(e.pointerId);
+  selEl.classList.add('dragging');
+  e.preventDefault();
+  selEl.focus({ preventScroll: true });
+});
+rowsEl.addEventListener('pointermove', (e) => {
+  const hover = $('#hover');
+  if (!drag) {
+    if (inTrackArea(e.clientX)) {
+      hover.style.display = 'block';
+      hover.style.left = (xToMin(e.clientX) / state.totalMin) * 100 + '%';
+    } else hover.style.display = 'none';
+    return;
+  }
+  hover.style.display = 'none';
+  const m = xToMin(e.clientX), S = state.sel, T = state.totalMin, sn = snapM();
+  if (drag.mode === 'new') {
+    if (Math.abs(e.clientX - drag.x0) < 4 && !drag.moved) return;
+    drag.moved = true;
+    const cur = snapRound(m);
+    if (cur >= drag.anchor) { S.start = drag.anchor; S.dur = Math.max(sn, cur - drag.anchor); }
+    else { S.start = cur; S.dur = drag.anchor - cur; }
+    if (S.start + S.dur > T) S.dur = T - S.start;
+  } else if (drag.mode === 'move') {
+    S.start = clamp(Math.round((m - drag.grab) / sn) * sn, 0, T - S.dur);
+  } else if (drag.mode === 'l') {
+    const end = S.start + S.dur;
+    const ns = clamp(snapRound(m), 0, end - sn);
+    S.start = ns; S.dur = end - ns;
+  } else if (drag.mode === 'r') {
+    const ne = clamp(snapRound(m), S.start + sn, T);
+    S.dur = ne - S.start;
+  }
+  renderSel();
+});
+function endDrag() {
+  if (!drag) return;
+  if (drag.mode === 'new' && !drag.moved) {
+    // Plain click: start a default-length meeting at the clicked slot.
+    const S = state.sel, sn = snapM();
+    S.dur = Math.min(cfg.settings.defaultMeetingMinutes, state.totalMin);
+    S.start = clamp(Math.floor(drag.click / sn) * sn, 0, state.totalMin - S.dur);
+    renderSel();
+  }
+  drag = null;
+  selEl.classList.remove('dragging');
+  saveView();
+}
+rowsEl.addEventListener('pointerup', endDrag);
+rowsEl.addEventListener('pointercancel', endDrag);
+rowsEl.addEventListener('pointerleave', () => { if (!drag) $('#hover').style.display = 'none'; });
+selEl.addEventListener('keydown', (e) => {
+  const S = state.sel, sn = snapM(), T = state.totalMin;
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  const dir = e.key === 'ArrowRight' ? 1 : -1;
+  if (e.shiftKey) S.dur = clamp(S.dur + dir * sn, sn, T - S.start);
+  else S.start = clamp(S.start + dir * sn, 0, T - S.dur);
+  e.preventDefault();
+  renderSel();
+  saveView();
+});
+
+/* ---------------------------------------------------------------------
+   Toolbar
+   --------------------------------------------------------------------- */
+function setDate(str) { if (/^\d{4}-\d{2}-\d{2}$/.test(str)) { state.dateStr = str; renderAll(); } }
+$('#prevDay').onclick = () => setDate(shiftDate(state.dateStr, -1));
+$('#nextDay').onclick = () => setDate(shiftDate(state.dateStr, 1));
+$('#todayBtn').onclick = () => setDate(todayStr());
+$('#dateInput').onchange = (e) => setDate(e.target.value);
+$('#hour12').onchange = (e) => { cfg.settings.hour12 = e.target.checked; saveConfig(); renderAll(); };
+$('#snap').onchange = (e) => { cfg.settings.snapMinutes = +e.target.value; saveConfig(); };
+$('#lenSel').onchange = (e) => {
+  if (e.target.value === 'custom') return;
+  const S = state.sel;
+  S.dur = clamp(+e.target.value, 5, state.totalMin);
+  S.start = clamp(S.start, 0, state.totalMin - S.dur);
+  renderSel(); saveView();
+};
+
+/* ---------------------------------------------------------------------
+   Theme switch: System → Light → Dark (a per-browser preference, not part of the config)
+   --------------------------------------------------------------------- */
+const LS_THEME = 'zonazoo.theme';
+const THEMES = { system: { icon: 'monitor', label: 'System' }, light: { icon: 'sun', label: 'Light' }, dark: { icon: 'moon', label: 'Dark' } };
+const THEME_ORDER = ['system', 'light', 'dark'];
+function applyTheme(t) {
+  if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  else delete document.documentElement.dataset.theme;
+  const b = $('#themeBtn'), th = THEMES[t] || THEMES.system;
+  b.innerHTML = `${icon(th.icon)}${th.label}`;
+  b.title = `Theme: ${th.label} (click to switch)`;
+}
+let theme = store.get(LS_THEME);
+if (!THEMES[theme]) theme = 'system';
+applyTheme(theme);
+$('#themeBtn').onclick = () => {
+  theme = THEME_ORDER[(THEME_ORDER.indexOf(theme) + 1) % THEME_ORDER.length];
+  store.set(LS_THEME, theme);
+  applyTheme(theme);
+};
+
+/* ---------------------------------------------------------------------
+   Export / import
+   --------------------------------------------------------------------- */
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 1800);
+}
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); toast('Copied to clipboard'); return; } catch { /* fallback below */ }
+  const ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); toast('Copied to clipboard'); } catch { toast('Copy failed'); }
+  ta.remove();
+}
+$('#exportBtn').onclick = () => {
+  const blob = new Blob([toYAML(cfg)], { type: 'text/yaml' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'zonazoo.yaml';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+/** Parse + validate YAML text; returns new cfg or null (after reporting). */
+function applyYamlText(text, { ask = true, report = (m) => alert(m) } = {}) {
+  let parsed;
+  try { parsed = parseYAML(text); } catch (err) { report('Could not read config:\n' + err.message); return false; }
+  let res;
+  try { res = normalizeConfig(parsed); } catch (err) { report(err.message); return false; }
+  if (res.errs.length) {
+    const msg = 'Some entries have problems:\n• ' + res.errs.join('\n• ');
+    if (!ask) { report(msg + '\n\nFix them and apply again.'); return false; }
+    if (!confirm(msg + '\n\nImport anyway (invalid entries are skipped)?')) return false;
+  }
+  cfg = res.cfg;
+  saveConfig();
+  renderAll();
+  return true;
+}
+async function importFile(file) {
+  if (!file) return;
+  const text = await file.text();
+  if (!confirm(`Replace your current config with "${file.name}"?`)) return;
+  if (applyYamlText(text)) toast(`Imported ${cfg.people.length + 1} people`);
+}
+$('#importBtn').onclick = () => $('#importFile').click();
+$('#importFile').onchange = (e) => { importFile(e.target.files[0]); e.target.value = ''; };
+// Drag & drop a file anywhere on the page.
+let dragDepth = 0;
+const hasFiles = (e) => [...(e.dataTransfer?.types || [])].includes('Files');
+window.addEventListener('dragenter', (e) => { if (hasFiles(e)) { dragDepth++; $('#drop').classList.add('show'); } });
+window.addEventListener('dragleave', () => { if (--dragDepth <= 0) { dragDepth = 0; $('#drop').classList.remove('show'); } });
+window.addEventListener('dragover', (e) => { if (hasFiles(e)) e.preventDefault(); });
+window.addEventListener('drop', (e) => {
+  if (!hasFiles(e)) return;
+  e.preventDefault(); dragDepth = 0; $('#drop').classList.remove('show');
+  importFile(e.dataTransfer.files[0]);
+});
+
+/* ---------------------------------------------------------------------
+   Editor dialog
+   --------------------------------------------------------------------- */
+const editor = $('#editor'), edList = $('#edList');
+function buildTzList() {
+  let zones = [];
+  try { zones = Intl.supportedValuesOf('timeZone'); } catch { /* old browser */ }
+  if (!zones.length) zones = Object.keys(ABBR);
+  if (!zones.includes(BROWSER_TZ)) zones.push(BROWSER_TZ);
+  const now = Date.now();
+  $('#tzlist').innerHTML = zones.map((z) => `<option value="${esc(z)}">${esc(cityFromTz(z))} · ${fmtOff(offsetMin(z, now))}</option>`).join('');
+}
+function tzPreview(p) {
+  if (!validTz(p.timezone)) return '';
+  const t = Date.now();
+  return `${abbrFor(p, t)} ${fmtOff(offsetMin(p.timezone, t))}`;
+}
+function renderEditor() {
+  const list = allPeople();
+  edList.innerHTML =
+    `<div class="ed-h"><div>Name</div><div>City</div><div>Time zone</div><div>Work hours</div><div>Abbr.</div><div></div></div>` +
+    list.map((p, i) => `
+    <div class="ed-row${p.isMe ? ' me' : ''}" data-i="${i}">
+      <input data-f="name" value="${esc(p.name)}" placeholder="Name" aria-label="Name">
+      <input data-f="city" value="${esc(p.city)}" placeholder="City" aria-label="City">
+      <div class="tzcell"><input data-f="timezone" value="${esc(p.timezone)}" list="tzlist" placeholder="Region/City" aria-label="Time zone" autocomplete="off"><span class="pv">${esc(tzPreview(p))}</span></div>
+      <input data-f="workHours" value="${esc(p.workHours)}" placeholder="09:00-17:00" aria-label="Work hours">
+      <input data-f="abbr" value="${esc(p.abbr || '')}" placeholder="auto" aria-label="Abbreviation override">
+      <div class="ed-act">${p.isMe ? '<span class="chip">YOU</span>' :
+        `<button type="button" data-a="up" title="Move up" aria-label="Move up" class="icon">${icon('up')}</button><button type="button" data-a="down" title="Move down" aria-label="Move down" class="icon">${icon('down')}</button><button type="button" data-a="del" title="Remove" aria-label="Remove" class="icon">${icon('x')}</button>`}</div>
+    </div>`).join('');
+  $('#awakeHours').value = cfg.settings.awakeHours;
+  $('#defLen').value = cfg.settings.defaultMeetingMinutes;
+}
+const personAt = (i) => (i === 0 ? cfg.me : cfg.people[i - 1]);
+edList.addEventListener('input', (e) => {
+  const inp = e.target.closest('input[data-f]');
+  if (!inp) return;
+  const row = inp.closest('.ed-row'), p = personAt(+row.dataset.i), f = inp.dataset.f, v = inp.value.trim();
+  if (f === 'timezone') {
+    if (!validTz(v)) { inp.classList.add('bad'); return; }
+    inp.classList.remove('bad');
+    if (!p.city || p.city === cityFromTz(p.timezone)) {
+      p.city = cityFromTz(v);
+      row.querySelector('[data-f="city"]').value = p.city;
+    }
+    p.timezone = v;
+    row.querySelector('.pv').textContent = tzPreview(p);
+  } else if (f === 'workHours') {
+    const w = parseWH(v);
+    inp.classList.toggle('bad', !w);
+    if (!w) return;
+    p.workHours = fmtWH(w);
+  } else if (f === 'abbr') {
+    if (v) p.abbr = v; else delete p.abbr;
+    row.querySelector('.pv').textContent = tzPreview(p);
+  } else {
+    p[f] = v;
+  }
+  saveConfig();
+  renderAll();
+});
+edList.addEventListener('click', (e) => {
+  const b = e.target.closest('button[data-a]');
+  if (!b) return;
+  const i = +b.closest('.ed-row').dataset.i - 1, arr = cfg.people;
+  if (b.dataset.a === 'del') {
+    if (!confirm(`Remove ${arr[i].name}?`)) return;
+    arr.splice(i, 1);
+  } else {
+    const j = b.dataset.a === 'up' ? i - 1 : i + 1;
+    if (j < 0 || j >= arr.length) return;
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  saveConfig(); renderEditor(); renderAll();
+});
+$('#addPerson').onclick = () => {
+  cfg.people.push({ name: 'New person', city: 'London', timezone: 'Europe/London', workHours: '09:00-17:00' });
+  saveConfig(); renderEditor(); renderAll();
+  const rows = edList.querySelectorAll('.ed-row');
+  const last = rows[rows.length - 1].querySelector('[data-f="name"]');
+  last.focus(); last.select();
+};
+$('#sortPeople').onclick = () => {
+  const t = state.dayStart;
+  cfg.people.sort((a, b) => offsetMin(a.timezone, t) - offsetMin(b.timezone, t) || a.name.localeCompare(b.name));
+  saveConfig(); renderEditor(); renderAll();
+};
+$('#awakeHours').oninput = (e) => {
+  const w = parseWH(e.target.value);
+  e.target.classList.toggle('bad', !w);
+  if (w) { cfg.settings.awakeHours = fmtWH(w); saveConfig(); renderAll(); }
+};
+$('#defLen').oninput = (e) => {
+  const v = Math.round(+e.target.value);
+  if (v >= 5 && v <= 720) { cfg.settings.defaultMeetingMinutes = v; saveConfig(); }
+};
+function showTab(name) {
+  document.querySelectorAll('.tabs button').forEach((b) => b.classList.toggle('active', b.dataset.tab === name));
+  $('#tab-people').hidden = name !== 'people';
+  $('#tab-yaml').hidden = name !== 'yaml';
+  if (name === 'yaml') { $('#yamlText').value = toYAML(cfg); $('#yamlErr').textContent = ''; }
+  else renderEditor();
+}
+document.querySelectorAll('.tabs button').forEach((b) => (b.onclick = () => showTab(b.dataset.tab)));
+$('#editBtn').onclick = () => { showTab('people'); editor.showModal(); };
+$('#yamlApply').onclick = () => {
+  const ok = applyYamlText($('#yamlText').value, { ask: false, report: (m) => ($('#yamlErr').textContent = m) });
+  if (ok) { $('#yamlErr').textContent = ''; $('#yamlText').value = toYAML(cfg); toast('Config applied'); }
+};
+$('#yamlReset').onclick = () => { $('#yamlText').value = toYAML(cfg); $('#yamlErr').textContent = ''; };
+
+/* ---------------------------------------------------------------------
+   Boot
+   --------------------------------------------------------------------- */
+state.dateStr = todayStr();
+buildTzList();
+renderAll();
+setInterval(() => { if (!drag) { renderRows(); renderSel(); renderNow(); } }, 30000);
+// Keep other tabs in sync if the config changes elsewhere.
+window.addEventListener('storage', (e) => { if (e.key === LS_CFG) { cfg = loadConfig(); renderAll(); } });
+</script>
+</body>
+</html>
