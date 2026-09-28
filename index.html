@@ -7,10 +7,26 @@
 <meta name="description" content="Timeline view of your team's time zones for scheduling meetings.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20159%20163%27%3E%3Cpath%20fill%3D%27%23F11336%27%20d%3D%27M131.48%2045.4986C127.96%2022.3213%20110.278%204.05962%2087.636%200.291991C85.7511%200.0150228%2083.8354%200.509712%2082.3066%201.66815C80.7779%202.82659%2079.7602%204.55477%2079.4756%206.47571C79.4292%206.84268%2079.4027%207.21199%2079.3963%207.58195C79.3895%209.30751%2079.9793%2010.9802%2081.062%2012.306C82.1447%2013.6317%2083.651%2014.5255%2085.3158%2014.8302C101.158%2017.369%20113.759%2029.7756%20116.919%2045.869C103.159%2049.3079%2092.9977%2061.1848%2091.4758%2075.5979C89.2758%2096.8914%2070.6348%20112.327%2049.8323%20110.117C30.5517%20108.03%2015.9092%2091.3626%2015.9092%2071.504C15.9092%2068.2687%2016.2698%2065.075%2017.0296%2061.9623C17.5105%2060.2012%2018.15%2058.4817%2018.7487%2056.7205C20.1889%2053.0338%2018.5492%2048.859%2014.9883%2047.3015C14.8681%2047.3015%2014.8681%2047.1788%2014.7479%2047.1788C13.8651%2046.8094%2012.9192%2046.6223%2011.965%2046.6284C11.0108%2046.6346%2010.0673%2046.8338%209.18907%2047.2146C8.31088%2047.5953%207.51547%2048.1501%206.84892%2048.8467C6.18237%2049.5433%205.65793%2050.3678%205.30596%2051.2727C4.46601%2053.4967%203.74524%2055.7657%203.14685%2058.0696C1.27365%2064.7766%200.226116%2071.6954%200.0283958%2078.6665C-1.13291%20123.544%2033.4706%20160.889%2077.3141%20162.077C121.158%20163.264%20157.641%20127.844%20158.8%2082.9639C158.8%2082.228%20158.841%2081.5314%20158.841%2080.7931V78.7057C158.762%2062.3278%20147.24%2048.3243%20131.48%2045.4986ZM125%2089.1084C119.919%2089.1084%20115.798%2084.8894%20115.798%2079.6893C115.796%2078.9991%20115.877%2078.3113%20116.039%2077.6411C116.403%2075.8847%20117.258%2074.2734%20118.5%2073.002C119.743%2071.7305%20121.32%2070.8533%20123.04%2070.4763C125.435%2069.9474%20127.938%2070.4091%20130%2071.76C132.062%2073.1109%20133.515%2075.2409%20134.04%2077.6829C134.201%2078.3378%20134.24%2078.9927%20134.24%2079.6893C134.319%2084.8085%20130.359%2089.025%20125.358%2089.1084H125Z%27/%3E%3C/svg%3E">
 <script>try { var t = localStorage.getItem('zonazoo.theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
+/* ---------- Fonts: Montserrat served from ./fonts (no third-party requests) ---------- */
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/Montserrat-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/Montserrat-Medium.ttf') format('truetype'); }
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/Montserrat-SemiBold.ttf') format('truetype'); }
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/Montserrat-Bold.ttf') format('truetype'); }
+/* Fallback: local Arial scaled to Montserrat's metrics, so the layout holds if the web font
+   is missing or still loading. Values measured from the font files (letter-frequency
+   weighted advance widths; hhea ascent 968 / descent 251 per 1000 units). */
+@font-face {
+  font-family: 'Montserrat Fallback'; font-weight: 100 500;
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans');
+  size-adjust: 113.86%; ascent-override: 85.02%; descent-override: 22.05%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Montserrat Fallback'; font-weight: 600 900;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold');
+  size-adjust: 108.85%; ascent-override: 88.93%; descent-override: 23.06%; line-gap-override: 0%;
+}
+
 /* ---------- Datapao Design System tokens ---------- */
 :root {
   --dp-red: #f11336;      --dp-red-600: #d90e2e;  --dp-red-50: #fff3f5;
@@ -24,8 +40,8 @@
   --shadow-lg: 0 18px 40px rgba(15, 22, 38, .12), 0 6px 14px rgba(15, 22, 38, .06);
   --ease-out: cubic-bezier(.22, 1, .36, 1);
   --r-xs: 2px; --r-sm: 4px; --r-md: 6px; --r-lg: 10px;
-  --font: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --font: 'Montserrat', 'Montserrat Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* ---------- roles (light) ---------- */
   --page: linear-gradient(90deg, #ffffff, var(--dp-ink-50));
@@ -272,6 +288,7 @@ main { padding: 24px 24px 48px; max-width: 1720px; margin: 0 auto; display: grid
 .summary .actions { display: flex; gap: 10px; margin-top: 14px; align-items: center; flex-wrap: wrap; }
 .summary .tbl { overflow-x: auto; }
 .muted { color: var(--muted); }
+.foot { text-align: center; font-size: 12px; color: var(--muted); padding: 4px 16px 0; }
 
 /* ---------- editor ---------- */
 dialog { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); color: var(--text); padding: 0; width: min(1100px, calc(100vw - 32px)); box-shadow: var(--shadow-lg); }
@@ -395,6 +412,10 @@ dialog::backdrop { background: rgba(21, 33, 46, .55); }
   </section>
 
   <section class="card summary" id="summary"></section>
+
+  <footer class="foot">
+    Hosted on GitHub Pages. Your people, settings and theme are stored only in this browser — nothing is sent to a server.
+  </footer>
 </main>
 
 <dialog id="editor">
